@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using FSInterface;
+
+namespace ThrottleCallibrationTest
+{
+    public partial class Form1 : Form
+    {
+        FSIClient fsi;
+        public Form1()
+        {
+            fsi = new FSIClient("Throttle test");
+            fsi.OnVarReceiveEvent += fsiOnVarReceive;
+            fsi.ProcessWrites();
+
+            InitializeComponent();
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            double value = ((double)trackBar1.Value) / 10000.0;
+            double eng1 = (value + 0.1) * 0.98;
+            double eng2 = (value - 0.1) * 1.02;
+
+            label1.Text = value.ToString();
+
+
+            fsi.SLI_AC_STBY_BUS_PHASE_1_VOLTAGE = (float)eng1;
+            fsi.SLI_AC_STBY_BUS_PHASE_2_VOLTAGE = (float)eng2;
+            fsi.ProcessWrites();
+        }
+
+
+        private void fsiOnVarReceive(FSIID id)
+        {
+
+        }
+    }
+}
