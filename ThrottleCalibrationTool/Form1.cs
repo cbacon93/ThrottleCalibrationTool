@@ -63,14 +63,18 @@ namespace ThrottleCalibrationTool
             else
             {
                 //display both engine values
-                progressBar1.Value = doubleToProgress(eng_l * 1000);
-                progressBar2.Value = doubleToProgress(eng_r * 1000);
+                progressBar1.Value = 1000;
+                progressBar2.Value = 1000;
+                progressBar1.Value = doubleToProgress(eng_l/20- 2500);
+                progressBar2.Value = doubleToProgress(eng_r/20+76000);
 
                 //put into callibration tool
                 calibrator.putData(eng_l, eng_r);
 
                 //get callibrated values
                 double[] c = calibrator.getCalibratedData(eng_l, eng_r);
+                progressBar3.Value = 1000;
+                progressBar4.Value = 1000;
                 progressBar3.Value = doubleToProgress(c[0] * 1000);
                 progressBar4.Value = doubleToProgress(c[1] * 1000);
             }

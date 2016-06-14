@@ -133,7 +133,36 @@ namespace ThrottleCalibrationTool
                 int index = getNearestIndex(e);
 
                 if (index > -1) {
+                    /*double eng1_ist = eng_l_data[index];
+                    double eng1_ist2 = eng1_ist;
+
+                    double eng2_ist = eng_r_data[index];
+                    double eng2_ist2 = eng2_ist;
+
+                    //lineare interpolöation eng1
+                    if (e > eng1_ist) {
+                        if (eng_l_data.Contains(index + 1)) {
+                            eng1_ist2 = eng_l_data[index+1];
+                            eng2_ist2 = eng_r_data[index + 1];
+                        }
+                    } else {
+                        if (eng_l_data.Contains(index - 1))
+                        {
+                            eng1_ist2 = eng_l_data[index-1];
+                            eng2_ist2 = eng_r_data[index - 1];
+                        }
+                    }
+                    
+                    double eng1_real = eng1_ist;
+                    double eng2_real = eng2_ist;
+                    if (Math.Abs(eng1_ist2 - eng1_ist) > 0.000001)
+                    {
+                        eng1_real = eng1_ist + (eng1_ist2 - eng1_ist) * Math.Abs(e - eng1_ist) / Math.Abs(eng1_ist2 - eng1_ist);
+                        eng2_real = eng2_ist + (eng2_ist2 - eng2_ist) * Math.Abs(e - eng1_ist) / Math.Abs(eng1_ist2 - eng1_ist);
+                    }*/
+
                     double diff = eng_l_data[index] - eng_r_data[index];
+                    //double diff = eng1_real - eng2_ist;
 
                     crossCalibData.Add(i, diff);
                 } else {
@@ -157,7 +186,7 @@ namespace ThrottleCalibrationTool
                 //linear interpolation
                 double ccCalibVal2 = ccCalibVal;
                 double interp_dist = Math.Abs(cckey * crossCalibResolution - eng1);
-                if (cckey / crossCalibResolution > eng1) {
+                if (cckey * crossCalibResolution > eng1) {
                     if (crossCalibData.ContainsKey(cckey + 1))
                     {
                         ccCalibVal2 = crossCalibData[cckey + 1];
