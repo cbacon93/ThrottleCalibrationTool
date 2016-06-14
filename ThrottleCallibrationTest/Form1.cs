@@ -26,8 +26,8 @@ namespace ThrottleCallibrationTest
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             double value = ((double)trackBar1.Value) / 10000.0;
-            double eng1 = (value + 0.1) * 0.98;
-            double eng2 = (value - 0.1) * 1.02;
+            double eng1 = (Math.Pow(value,2) + 5.1) * 10123;
+            double eng2 = (Math.Pow(value,5) - 123.1) * 12345;
 
             label1.Text = value.ToString();
 

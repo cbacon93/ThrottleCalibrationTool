@@ -10,6 +10,9 @@ namespace ThrottleCallibrationTool
     {
         List<double> eng_l_data;
         List<double> eng_r_data;
+        Dictionary<int, double> crossCalibData;
+        double crossCalibResolution = 0.01;
+
         bool callibrating = false;
 
 
@@ -21,41 +24,53 @@ namespace ThrottleCallibrationTool
         {
             eng_l_data = new List<double>();
             eng_r_data = new List<double>();
+            crossCalibData = new Dictionary<int, double>();
         }
 
         public void startCallibration()
         {
             eng_l_data.Clear();
             eng_r_data.Clear();
+            crossCalibData.Clear();
 
             callibrating = true;
         }
 
-        public void stopCallibration()
+        public void stopCallibration(bool _singleCallibrate, bool _crossCallibrate)
         {
+            if (!callibrating) return;
             callibrating = false;
 
-            //callibrate throttle lever
+            //resetting values
             add_l = 0;
             mult_l = 1;
-            double min_l = 0, max_l = 0;
             add_r = 0;
             mult_r = 1;
+
+            //callibrate throttle lever
+            double add_l_ = 0;
+            double mult_l_ = 1;
+            double min_l = 0, max_l = 0;
+            double add_r_ = 0;
+            double mult_r_ = 1;
             double min_r = 0, max_r = 0;
 
             getMinMax(out min_l, out max_l, out min_r, out max_r);
 
             //left throttle
-            add_l = -min_l;
+            add_l_ = -min_l;
             if ((max_l - min_l) != 0)
-                mult_l = 1/(max_l - min_l);
+                mult_l_ = 1/(max_l - min_l);
 
             //right throttle
-            add_r = -min_r;
+            add_r_ = -min_r;
             if ((max_r - min_r) != 0)
-                mult_r = 1 / (max_r - min_r);
+                mult_r_ = 1 / (max_r - min_r);
 
-
+            if (_singleCallibrate)
+                singleCallibrate(add_l_, mult_l_, add_r_, mult_r_);
+            if (_crossCallibrate)
+                crossCallibrate();
         }
 
         public void putData(double leftEngine, double rightEngine)
@@ -93,28 +108,97 @@ namespace ThrottleCallibrationTool
         }
 
         //callibrates both throttle levers single
-        private void singleCallibrate(double add_l, double mult_l, double add_r, double mult_r)
+        private void singleCallibrate(double add_l_, double mult_l_, double add_r_, double mult_r_)
         {
             for (int i = 0; i < eng_l_data.Count; i++)
             {
-                eng_l_data[i] += add_l;
-                eng_l_data[i] *= mult_l;
+                eng_l_data[i] += add_l_;
+                eng_l_data[i] *= mult_l_;
 
-                eng_r_data[i] += add_r;
-                eng_r_data[i] *= mult_r;
+                eng_r_data[i] += add_r_;
+                eng_r_data[i] *= mult_r_;
             }
+
+            add_l = add_l_;
+            mult_l = mult_l_;
+            add_r = add_r_;
+            mult_r = mult_r_;
         }
 
 
         private void crossCallibrate()
         {
+            for (int i=0; i <= (1/crossCalibResolution); i++) {
+                double e = i * crossCalibResolution;
+                int index = getNearestIndex(e);
 
+                if (index > -1) {
+                    double diff = eng_l_data[index] - eng_r_data[index];
+
+                    crossCalibData.Add(i, diff);
+                } else {
+                    crossCalibData.Add(i, 0);
+                }
+            }
         }
 
 
         public double[] getCallibratedData(double leftEngine, double rightEngine)
         {
-            return new double[] { (leftEngine + add_l) * mult_l, (rightEngine + add_r) * mult_r };
+            //single callibration
+            double eng1 = (leftEngine + add_l) * mult_l;
+            double eng2 = (rightEngine + add_r) * mult_r;
+
+            //cross calibration
+            int cckey = getNextCrossCalibKey(eng1);
+            if (crossCalibData.ContainsKey(cckey)) {
+                double ccCalibVal = crossCalibData[cckey];
+
+                //linear interpolation
+                double ccCalibVal2 = ccCalibVal;
+                double interp_dist = Math.Abs(cckey * crossCalibResolution - eng1);
+                if (cckey / crossCalibResolution > eng1) {
+                    if (crossCalibData.ContainsKey(cckey + 1))
+                    {
+                        ccCalibVal2 = crossCalibData[cckey + 1];
+                    }
+                } else {
+                    if (crossCalibData.ContainsKey(cckey - 1))
+                    {
+                        ccCalibVal2 = crossCalibData[cckey - 1];
+                    }
+                }
+
+                eng2 += ccCalibVal + (ccCalibVal2 - ccCalibVal) * (interp_dist / crossCalibResolution);
+            }
+
+            return new double[] { eng1, eng2 };
+        }
+
+        private int getNearestIndex(double value) {
+            double distance = 99999999.0;
+            int saveIndex = -1;
+
+            for (int i =0; i < eng_l_data.Count; i++) {
+                if (Math.Abs(eng_l_data[i]- value) < distance) {
+                    saveIndex = i;
+                    distance = Math.Abs(eng_l_data[i] - value);
+                }
+            }
+            return saveIndex;
+        }
+
+        private int getNextCrossCalibKey(double value) {
+            double multip = 1 / crossCalibResolution;
+
+            int value1 = (int)Math.Round(value * multip);
+            int value2 = (int)Math.Round((value+ crossCalibResolution) * multip);
+
+            if (Math.Abs(value2 - value* multip) < Math.Abs(value1 - value* multip)) {
+                return value2;
+            } else {
+                return value1;
+            }
         }
     }
 }

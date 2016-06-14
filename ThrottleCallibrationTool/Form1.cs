@@ -40,7 +40,7 @@ namespace ThrottleCallibrationTool
 
         private void button2_Click(object sender, EventArgs e)
         {
-            callibrator.stopCallibration();
+            callibrator.stopCallibration(checkBox1.Checked, checkBox2.Checked);
         }
 
         private void fsiOnVarReceive(FSIID id)

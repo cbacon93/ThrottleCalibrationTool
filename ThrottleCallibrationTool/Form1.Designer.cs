@@ -36,11 +36,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.progressBar3 = new System.Windows.Forms.ProgressBar();
             this.progressBar4 = new System.Windows.Forms.ProgressBar();
-            this.label4 = new System.Windows.Forms.Label();
+            this.progressBar3 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -117,15 +119,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Callibrated Throttle Values";
             // 
-            // progressBar3
-            // 
-            this.progressBar3.Location = new System.Drawing.Point(74, 31);
-            this.progressBar3.Maximum = 1000;
-            this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(499, 19);
-            this.progressBar3.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar3.TabIndex = 0;
-            // 
             // progressBar4
             // 
             this.progressBar4.Location = new System.Drawing.Point(74, 56);
@@ -135,14 +128,14 @@
             this.progressBar4.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar4.TabIndex = 0;
             // 
-            // label4
+            // progressBar3
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Throttle L";
+            this.progressBar3.Location = new System.Drawing.Point(74, 31);
+            this.progressBar3.Maximum = 1000;
+            this.progressBar3.Name = "progressBar3";
+            this.progressBar3.Size = new System.Drawing.Size(499, 19);
+            this.progressBar3.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar3.TabIndex = 0;
             // 
             // label5
             // 
@@ -153,8 +146,19 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "Throttle R";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Throttle L";
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox2);
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.progressBar1);
             this.groupBox2.Controls.Add(this.progressBar2);
             this.groupBox2.Controls.Add(this.button2);
@@ -168,6 +172,30 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Raw Throttle Values";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(386, 83);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(102, 17);
+            this.checkBox2.TabIndex = 5;
+            this.checkBox2.Text = "crossCallibration";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(251, 83);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(104, 17);
+            this.checkBox1.TabIndex = 5;
+            this.checkBox1.Text = "singleCallibration";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -210,6 +238,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 
