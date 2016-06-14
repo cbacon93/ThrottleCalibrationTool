@@ -169,7 +169,7 @@ namespace ThrottleCalibrationTool
                     }
                 }
 
-                eng2 += ccCalibVal + (ccCalibVal2 - ccCalibVal) * (interp_dist / crossCalibResolution);
+                eng1 -= ccCalibVal + (ccCalibVal2 - ccCalibVal) * (interp_dist / crossCalibResolution);
             }
 
             return new double[] { eng1, eng2 };
