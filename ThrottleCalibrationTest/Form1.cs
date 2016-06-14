@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FSInterface;
 
-namespace ThrottleCallibrationTest
+namespace ThrottleCalibrationTest
 {
     public partial class Form1 : Form
     {

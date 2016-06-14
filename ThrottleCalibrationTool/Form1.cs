@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FSInterface;
 
-namespace ThrottleCallibrationTool
+namespace ThrottleCalibrationTool
 {
     public partial class Form1 : Form
     {
-        private Callibrator callibrator;
+        private Calibrator calibrator;
         private FSIClient fsi;
         delegate void SetDoubleCallback(double eng_l, double eng_r);
 
@@ -29,18 +29,18 @@ namespace ThrottleCallibrationTool
             );
             fsi.ProcessWrites();
 
-            callibrator = new Callibrator();
+            calibrator = new Calibrator();
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            callibrator.startCallibration();
+            calibrator.startCalibration();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            callibrator.stopCallibration(checkBox1.Checked, checkBox2.Checked);
+            calibrator.stopCalibration(checkBox1.Checked, checkBox2.Checked);
         }
 
         private void fsiOnVarReceive(FSIID id)
@@ -67,10 +67,10 @@ namespace ThrottleCallibrationTool
                 progressBar2.Value = doubleToProgress(eng_r * 1000);
 
                 //put into callibration tool
-                callibrator.putData(eng_l, eng_r);
+                calibrator.putData(eng_l, eng_r);
 
                 //get callibrated values
-                double[] c = callibrator.getCallibratedData(eng_l, eng_r);
+                double[] c = calibrator.getCalibratedData(eng_l, eng_r);
                 progressBar3.Value = doubleToProgress(c[0] * 1000);
                 progressBar4.Value = doubleToProgress(c[1] * 1000);
             }

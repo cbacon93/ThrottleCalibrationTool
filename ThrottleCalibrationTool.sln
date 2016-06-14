@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrottleCallibrationTool", "ThrottleCallibrationTool\ThrottleCallibrationTool.csproj", "{1F380A69-63AC-418D-A4D7-ADF27266F116}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrottleCalibrationTool", "ThrottleCalibrationTool\ThrottleCalibrationTool.csproj", "{1F380A69-63AC-418D-A4D7-ADF27266F116}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrottleCallibrationTest", "ThrottleCallibrationTest\ThrottleCallibrationTest.csproj", "{97150360-94E0-4423-A4CD-5D435F7EE878}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrottleCalibrationTest", "ThrottleCalibrationTest\ThrottleCalibrationTest.csproj", "{97150360-94E0-4423-A4CD-5D435F7EE878}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSInterface", "..\..\..\..\..\..\FS737\SDK\CS\Components_CS\FSInterface.csproj", "{08269F5E-6465-4643-8DEC-5BEE084E1C44}"
 EndProject

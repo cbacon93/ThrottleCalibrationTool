@@ -118,9 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label3.Text" xml:space="preserve">
-    <value>Align both throttles and start the callibration. 
+    <value>Align both throttles and start the calibration. 
 Now keep the two throttle levers perfectly aligned and slowly move them together back and forth about 3 to 4 times. 
-Then click on Stop Callibration.
+Then click on Stop Calibration.
+
 </value>
   </data>
 </root>

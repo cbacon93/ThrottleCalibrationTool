@@ -4,42 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ThrottleCallibrationTool
+namespace ThrottleCalibrationTool
 {
-    class Callibrator
+    class Calibrator
     {
         List<double> eng_l_data;
         List<double> eng_r_data;
         Dictionary<int, double> crossCalibData;
         double crossCalibResolution = 0.01;
 
-        bool callibrating = false;
+        bool calibrating = false;
 
 
         //linear callibration data
         double add_l = 0, mult_l = 1;
         double add_r = 0, mult_r = 1;
 
-        public Callibrator()
+        public Calibrator()
         {
             eng_l_data = new List<double>();
             eng_r_data = new List<double>();
             crossCalibData = new Dictionary<int, double>();
         }
 
-        public void startCallibration()
+        public void startCalibration()
         {
             eng_l_data.Clear();
             eng_r_data.Clear();
             crossCalibData.Clear();
 
-            callibrating = true;
+            calibrating = true;
         }
 
-        public void stopCallibration(bool _singleCallibrate, bool _crossCallibrate)
+        public void stopCalibration(bool _singleCalibrate, bool _crossCalibrate)
         {
-            if (!callibrating) return;
-            callibrating = false;
+            if (!calibrating) return;
+            calibrating = false;
 
             //resetting values
             add_l = 0;
@@ -67,15 +67,15 @@ namespace ThrottleCallibrationTool
             if ((max_r - min_r) != 0)
                 mult_r_ = 1 / (max_r - min_r);
 
-            if (_singleCallibrate)
-                singleCallibrate(add_l_, mult_l_, add_r_, mult_r_);
-            if (_crossCallibrate)
-                crossCallibrate();
+            if (_singleCalibrate)
+                singleCalibrate(add_l_, mult_l_, add_r_, mult_r_);
+            if (_crossCalibrate)
+                crossCalibrate();
         }
 
         public void putData(double leftEngine, double rightEngine)
         {
-            if (callibrating)
+            if (calibrating)
             {
                 eng_l_data.Add(leftEngine);
                 eng_r_data.Add(rightEngine);
@@ -108,7 +108,7 @@ namespace ThrottleCallibrationTool
         }
 
         //callibrates both throttle levers single
-        private void singleCallibrate(double add_l_, double mult_l_, double add_r_, double mult_r_)
+        private void singleCalibrate(double add_l_, double mult_l_, double add_r_, double mult_r_)
         {
             for (int i = 0; i < eng_l_data.Count; i++)
             {
@@ -126,7 +126,7 @@ namespace ThrottleCallibrationTool
         }
 
 
-        private void crossCallibrate()
+        private void crossCalibrate()
         {
             for (int i=0; i <= (1/crossCalibResolution); i++) {
                 double e = i * crossCalibResolution;
@@ -143,7 +143,7 @@ namespace ThrottleCallibrationTool
         }
 
 
-        public double[] getCallibratedData(double leftEngine, double rightEngine)
+        public double[] getCalibratedData(double leftEngine, double rightEngine)
         {
             //single callibration
             double eng1 = (leftEngine + add_l) * mult_l;

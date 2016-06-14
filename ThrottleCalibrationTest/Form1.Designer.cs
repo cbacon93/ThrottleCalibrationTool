@@ -1,4 +1,4 @@
-﻿namespace ThrottleCallibrationTest
+﻿namespace ThrottleCalibrationTest
 {
     partial class Form1
     {
